@@ -12,7 +12,7 @@ public interface AStarNode {
      * A collection of all neighbours of this node.
      * @return Node's neighbours
      */
-    public Collection<AStarNode> getNeighbours();
+    public <T extends AStarNode> Collection<T> getNeighbours();
     /**
      * To make AStar's estimation work so that it finds an optimal route we 
      * need to know the distance between nodes in the network.
@@ -20,5 +20,5 @@ public interface AStarNode {
      * @return The distance to target node as a double
      * @throws net.oddsor.AStarMulti.DistanceOutOfRangeException
      */
-    public double getDistance(AStarNode node) throws Exception;
+    public <T extends AStarNode> double getDistance(T node) throws Exception;
 }

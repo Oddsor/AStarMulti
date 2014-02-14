@@ -19,31 +19,31 @@ import java.util.Set;
  * @author Odd
  */
 public class AStarMulti {
-    public static <T extends AStarNode> Queue<T> getRoute(Collection<T> goals, 
-            T start) throws Exception{
+    public static <Node extends AStarNode> Queue<Node> getRoute(Collection<Node> goals, 
+            Node start) throws Exception{
         //TODO figure out if nullpointerexceptions 'handle themselves'.
         if(goals.isEmpty()){
             throw new Exception("No goals in list");
         }
         Set closedSet = new HashSet();
         Set openSet = new HashSet();
-        Map<T, T> cameFrom = new HashMap<>();
+        Map<Node, Node> cameFrom = new HashMap<>();
         openSet.add(start);
-        Map<T, Double> gScore = new HashMap<>();
+        Map<Node, Double> gScore = new HashMap<>();
         gScore.put(start, 0.0);
-        Map<T, Double> fScore = new HashMap<>();
+        Map<Node, Double> fScore = new HashMap<>();
         fScore.put(start, getShortestDistance(start, goals));
         
         while(!openSet.isEmpty()){
-            T current = (T) getLowest(fScore, openSet);
-            for(T goal: goals){
+            Node current = (Node) getLowest(fScore, openSet);
+            for(Node goal: goals){
                 if(current.equals(goal)) return reconstructPath(cameFrom, goal);
             }
             openSet.remove(current);
             closedSet.add(current);
             
-            Collection<T> neighbours = current.getNeighbours();
-            for(T neighbour: neighbours){
+            Collection<Node> neighbours = current.getNeighbours();
+            for(Node neighbour: neighbours){
                 if(closedSet.contains(neighbour)){
                     continue;
                 }
@@ -64,10 +64,10 @@ public class AStarMulti {
         return null;
     }
     
-    private static <T extends AStarNode> Queue<T> 
-        reconstructPath(Map<T, T> cameFrom, T current) 
+    private static <Node extends AStarNode> Queue<Node> 
+        reconstructPath(Map<Node, Node> cameFrom, Node current) 
         {
-        Queue<T> nodes = new ArrayDeque<>();
+        Queue<Node> nodes = new ArrayDeque<>();
         if(cameFrom.containsKey(current)){
             nodes.addAll(reconstructPath(cameFrom, cameFrom.get(current)));
         }
@@ -75,10 +75,10 @@ public class AStarMulti {
         return nodes;
     }
     
-    private static <T extends AStarNode> T getLowest(Map<T, Double> scores, Set<T> openSet){
+    private static <Node extends AStarNode> Node getLowest(Map<Node, Double> scores, Set<Node> openSet){
         double shortestDistance = 100000000.0;
-        T shortestNode = null;
-        for(T node: scores.keySet()){
+        Node shortestNode = null;
+        for(Node node: scores.keySet()){
             if(scores.get(node) < shortestDistance && openSet.contains(node)){
                 shortestNode = node;
                 shortestDistance = scores.get(node);
@@ -87,9 +87,9 @@ public class AStarMulti {
         return shortestNode;
     }
     
-    private static <T extends AStarNode> double getShortestDistance(T start, 
-            Collection<T> goals) throws Exception{
-        Iterator<T> it = goals.iterator();
+    private static <Node extends AStarNode> double getShortestDistance(Node start, 
+            Collection<Node> goals) throws Exception{
+        Iterator<Node> it = goals.iterator();
         double distance = 1000000000.0;
         while (it.hasNext()){
             double tempDistance = start.getDistance(it.next());

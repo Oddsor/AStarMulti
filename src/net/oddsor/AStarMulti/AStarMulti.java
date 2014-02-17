@@ -4,11 +4,11 @@ package net.oddsor.AStarMulti;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -19,7 +19,7 @@ import java.util.Set;
  * @author Odd
  */
 public class AStarMulti {
-    public static <Node extends AStarNode> Queue<Node> getRoute(Collection<Node> goals, 
+    public static <Node extends AStarNode> Deque<Node> getRoute(Collection<Node> goals, 
             Node start) throws Exception{
         //TODO figure out if nullpointerexceptions 'handle themselves'.
         if(goals.isEmpty()){
@@ -64,10 +64,10 @@ public class AStarMulti {
         return null;
     }
     
-    private static <Node extends AStarNode> Queue<Node> 
+    private static <Node extends AStarNode> Deque<Node> 
         reconstructPath(Map<Node, Node> cameFrom, Node current) 
         {
-        Queue<Node> nodes = new ArrayDeque<>();
+        Deque<Node> nodes = new ArrayDeque<>();
         if(cameFrom.containsKey(current)){
             nodes.addAll(reconstructPath(cameFrom, cameFrom.get(current)));
         }

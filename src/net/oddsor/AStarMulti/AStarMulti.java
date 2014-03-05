@@ -3,6 +3,7 @@
 package net.oddsor.AStarMulti;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
@@ -19,6 +20,12 @@ import java.util.Set;
  * @author Odd
  */
 public class AStarMulti {
+    public static <Node extends AStarNode> Deque<Node> getRoute(Node goal, Node start) throws Exception{
+        Collection<Node> goals = new ArrayList<>();
+        goals.add(goal);
+        return getRoute(goals, start);
+    }
+    
     public static <Node extends AStarNode> Deque<Node> getRoute(Collection<Node> goals, 
             Node start) throws Exception{
         //TODO figure out if nullpointerexceptions 'handle themselves'.

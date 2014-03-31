@@ -1,5 +1,4 @@
 
-
 package net.oddsor.AStarMulti;
 
 import java.util.ArrayDeque;
@@ -28,7 +27,6 @@ public class AStarMulti {
     
     public static <Node extends AStarNode> Deque<Node> getRoute(Collection<Node> goals, 
             Node start) throws Exception{
-        //TODO figure out if nullpointerexceptions 'handle themselves'.
         if(goals.isEmpty()){
             throw new Exception("No goals in list");
         }
